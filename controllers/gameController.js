@@ -18,8 +18,8 @@ exports.getAllGames = catchAsync(async (req, res, next) => {
 });
 
 exports.createGame = catchAsync(async (req, res, next) => {
-  const [Name, Url, Author, Published_Date] = req.body;
-  if (!Name || !Url || !Author || !Published_Date) {
+  const [Name, Url, Author] = req.body;
+  if (!Name || !Url || !Author) {
     return next(
       new AppError(
         'Please provide values for Name, Url, Author, and Published_Date!',

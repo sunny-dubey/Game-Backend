@@ -1,20 +1,18 @@
 const express = require('express');
 const morgan = require('morgan');
 const AppError = require('./utils/appError');
-//const userRouter = require('./routes/userRoutes');
+const gameRouter = require('./routes/gameRoutes');
 
 const app = express();
 
-// middleware
 app.use(express.json({ limit: '10kb' }));
 app.use(morgan('dev'));
 
-// routes
 app.get('/', (req, res) => {
   res.send('home page');
 });
 
-//app.use('/api/v1/users', userRouter);
+app.use('/api/v1/users', gameRouter);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
