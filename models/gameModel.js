@@ -4,11 +4,13 @@ const gameSchema = mongoose.Schema({
   Name: {
     type: String,
     required: [true, 'Please enter the game name'],
+    unique: true,
   },
   Url: {
     type: String,
     required: [true, 'Please enter the url of the game'],
-    match: [/^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/, 'Please enter a valid URL'],
+    //match: [/^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/, 'Please enter a valid URL'],
+    unique: true,
   },
   Author: {
     type: String,

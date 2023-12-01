@@ -4,7 +4,7 @@ const AppError = require('./../utils/appError');
 
 exports.getAllGames = catchAsync(async (req, res, next) => {
   const games = await Game.find();
-  if (!games) {
+  if (games.length == 0) {
     return next(new AppError('No Game in the database!', 400));
   }
 
@@ -18,7 +18,8 @@ exports.getAllGames = catchAsync(async (req, res, next) => {
 });
 
 exports.createGame = catchAsync(async (req, res, next) => {
-  const [Name, Url, Author] = req.body;
+  const { Name, Url, Author } = req.body;
+  console.log('check');
   if (!Name || !Url || !Author) {
     return next(
       new AppError(
@@ -31,7 +32,6 @@ exports.createGame = catchAsync(async (req, res, next) => {
     Name,
     Url,
     Author,
-    Published_Date,
   });
 
   res.status(201).json({
@@ -68,6 +68,8 @@ exports.updateGame = catchAsync(async (req, res, next) => {
   if (!updatedGame) {
     return next(new AppError('Game not found', 404));
   }
+  updatedGame.Published_Date = new Date();
+  await updatedGame.save();
 
   res.status(200).json({
     status: 'successfully updated the game',

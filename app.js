@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
   res.send('home page');
 });
 
-app.use('/api/v1/users', gameRouter);
+app.use('/api/v1/game', gameRouter);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
